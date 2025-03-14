@@ -51,16 +51,7 @@
                     @error('status')
                         <label class="text-danger">{{ $message }}</label>
                     @enderror
-                </div>                
-                
-                <!-- Materiel Field -->
-                {{-- <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700">Nombre de places</label>
-                    <input type="number" name="nbrPlaces" id="nbrPlaces" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
-                    @error('nbrPlaces')
-                        <label class="text-danger">{{ $message }}</label>
-                    @enderror
-                </div> --}}
+                </div>
 
                 <!-- Email Field -->
                 <div class="mb-4">

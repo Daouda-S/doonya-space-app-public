@@ -36,7 +36,6 @@ class ReservationController extends Controller
 
     public function getOptionsByEspace($espaceId)
     {
-        // dd('ok')
         // Récupérer les options associées à l'espace
         $options = EspaceOption::with('option')->where('espace_id', $espaceId)->get();
 
@@ -48,7 +47,6 @@ class ReservationController extends Controller
 
     public function save(Request $request)
     {
-        // dd($request);
         Validator::extend('custom_datetime', function ($attribute, $value, $parameters, $validator) {
             $format = 'd/m/Y H:i'; // Custom datetime format
             $date = DateTime::createFromFormat($format, $value);
@@ -81,11 +79,9 @@ class ReservationController extends Controller
                     $reservationOption = new ReservationOption();
                     $reservationOption->reservation_id = $reservation->id;
                     $reservationOption->espace_option_id = $option;
-                    // dd($reservationOption->reservation_id, $reservationOption->espace_option_id);
                     $reservationOption->save();
                 } catch (\Exception $e) {
                     
-                    // Capturez l'erreur et affichez-la
                     session()->flash('error', 'Erreur lors de l\'enregistrement de l\'option: ' . $e->getMessage());
                     return $e->getMessage();
                 }
@@ -108,7 +104,6 @@ class ReservationController extends Controller
 
          // Récupérer tous les utilisateurs (si nécessaire, tu peux filtrer cela par rôle ou autre condition)
          $users = User::all();
-        // dd($reservation['espace_id']);
          // Initialiser les options comme un tableau vide (elles seront chargées dynamiquement selon l'espace choisi)
          $options = EspaceOption::with('espace')->where('espace_id', $reservation['espace_id'])->get();
  

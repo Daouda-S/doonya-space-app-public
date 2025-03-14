@@ -236,16 +236,6 @@
                   </div>
                 </div>
               </div><!-- End Stats Item -->
-    
-              {{-- <div class="col-lg-3 col-md-6">
-                <div class="stats-item d-flex align-items-center w-100 h-100">
-                  <i class="bi bi-people color-pink flex-shrink-0"></i>
-                  <div>
-                    <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-                    <p>Hard Workers</p>
-                  </div>
-                </div>
-              </div><!-- End Stats Item --> --}}
             </div>
           </div>
         </section><!-- /Stats Section -->

@@ -123,19 +123,6 @@
     <script>
         $(document).ready(function() {
 
-            // // Affichage du loader au moment où la page est prête
-            // $(window).on('load', function() {
-            //     // Afficher le loader et l'overlay
-            //     $('#loader').show();
-            //     $('#overlay').show();
-
-            //     // Masquer le loader et l'overlay après 2 secondes
-            //     setTimeout(function() {
-            //         $('#loader').hide();  // Masque le loader
-            //         $('#overlay').hide(); // Masque l'overlay
-            //     }, 2000); // Attendre 2 secondes avant de les masquer
-            // });
-
             // Action pour le bouton "modifier"
             $('#pencil').click(function() {
                 // Afficher le loader
