@@ -12,6 +12,7 @@
           </div>
         </div>
       </div><!-- End Page Title -->
+      
 
     <!-- Shop Page -->
     <!-- Salle Section -->
@@ -64,7 +65,8 @@
                                         <li style="color: #ef4444">pas d'option supplementaire</li>
                                     @endforelse
                                 </ul></span>
-
+                                <span><h3 style="text-decoration: underline"> Taille : </h3>{{ $bureauIndividuel['taille'] }}</span>
+                                <span><h3 style="text-decoration: underline"> Capacité : </h3>{{ $bureauIndividuel['capacite'] }}</span>
                                 <div class="social">
                                 <p>Prix par jour : {{ $bureauIndividuel['prix'] }} FCFA</p>
                                 </div>
@@ -130,6 +132,8 @@
                                             <li style="color: #ef4444">pas d'option supplementaire</li>
                                         @endforelse
                                     </ul></span>
+                                    <span><h3 style="text-decoration: underline"> Taille : </h3>{{ $salleConference['taille'] }}</span>
+                                    <span><h3 style="text-decoration: underline"> Capacité : </h3>{{ $salleConference['capacite'] }}</span>
     
                                     <div class="social">
                                     <p>Prix par jour : {{ $salleConference['prix'] }} FCFA</p>
@@ -195,6 +199,8 @@
                                             <li style="color: #ef4444">pas d'option supplementaire</li>
                                         @endforelse
                                     </ul></span>
+                                    <span><h3 style="text-decoration: underline"> Taille : </h3>{{ $espaceCoworking['taille'] }}</span>
+                                    <span><h3 style="text-decoration: underline"> Capacité : </h3>{{ $espaceCoworking['capacite'] }}</span>
     
                                     <div class="social">
                                     <p>Prix par jour : {{ $espaceCoworking['prix'] }} FCFA</p>
@@ -260,6 +266,8 @@
                                             <li style="color: #ef4444">pas d'option supplementaire</li>
                                         @endforelse
                                     </ul></span>
+                                    <span><h3 style="text-decoration: underline"> Taille : </h3>{{ $espaceIndividuel['taille'] }}</span>
+                                    <span><h3 style="text-decoration: underline"> Capacité : </h3>{{ $espaceIndividuel['capacite'] }}</span>
     
                                     <div class="social">
                                     <p>Prix par jour : {{ $espaceIndividuel['prix'] }} FCFA</p>
@@ -287,6 +295,7 @@
                 behavior: "smooth"
             });
         });
+        
     </script>
     
 

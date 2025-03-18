@@ -27,36 +27,36 @@
                   <div class="col-md-3 mb-4 stretch-card transparent">
                     <div class="card card-tale">
                       <div class="card-body">
-                        <p class="mb-4">Today’s Bookings</p>
-                        <p class="fs-30 mb-2">4006</p>
-                        <p>10.00% (30 days)</p>
+                        <p class="mb-4">Les reservations d'aujourd'hui</p>
+                        <p class="fs-30 mb-2"> {{ $today_reservations }} </p>
+                        <p>Reservation en cours : {{ $today_reservations_en_cours }} </p>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-3 mb-4 stretch-card transparent">
                     <div class="card card-dark-blue">
                       <div class="card-body">
-                        <p class="mb-4">Total Bookings</p>
-                        <p class="fs-30 mb-2">61344</p>
-                        <p>22.00% (30 days)</p>
+                        <p class="mb-4">Total des reservations</p>
+                        <p class="fs-30 mb-2"> {{ $nbr_reservations }} </p>
+                        {{-- <p>Total annulées :  </p> --}}
                       </div>
                     </div>
                   </div>
                   <div class="col-md-3 mb-4  stretch-card transparent">
                     <div class="card card-light-blue">
                       <div class="card-body">
-                        <p class="mb-4">Number of Meetings</p>
-                        <p class="fs-30 mb-2">34040</p>
-                        <p>2.00% (30 days)</p>
+                        <p class="mb-4">Nombre des espaces disponibles</p>
+                        <p class="fs-30 mb-2"> {{ $nbr_espaces_disponibles }} </p>
+                        <p>Total des espaces : {{ $nbr_espaces }} </p>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-3 mb-4 stretch-card transparent">
                     <div class="card card-light-danger">
                       <div class="card-body">
-                        <p class="mb-4">Number of Clients</p>
-                        <p class="fs-30 mb-2">47033</p>
-                        <p>0.22% (30 days)</p>
+                        <p class="mb-4">Nombre des clients totals</p>
+                        <p class="fs-30 mb-2"> {{ $nbr_users }} </p>
+                        <p>Nombre des clients qui ont passé une reservation : {{ $nbr_users_reservations }} </p>
                       </div>
                     </div>
                   </div>

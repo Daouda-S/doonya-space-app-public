@@ -18,7 +18,7 @@
     <!-- Hero Section -->
     <section class=" row gy-4">
         <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-            <form class="forms-sample" action="{{ route('admin.reservations.save') }}" method="POST" enctype="multipart/form-data">
+            <form class="forms-sample" action="{{ route('payement.save') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <!-- Name Field -->
                 <div class="mb-4">
@@ -177,7 +177,7 @@
                 @endif
             </div>
             
-                        <!-- Modale pour afficher toutes les images -->
+            <!-- Modale pour afficher toutes les images -->
             <div class="modal fade" id="allImagesModal" tabindex="-1" aria-labelledby="allImagesModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width: 95%;">
                   <div class="modal-content">
@@ -303,18 +303,18 @@
       });
 
           // Initialisation de Flatpickr
-    flatpickr("#dateDebut", {
-        dateFormat: "Y-m-d", // Format de la date
-        minDate: "today", // Empêcher la sélection de dates passées
-        locale: "fr", // Langue (ici en français)
-        allowInput: false // Permet l'édition manuelle
-    });
-    flatpickr("#dateFin", {
-        dateFormat: "Y-m-d", // Format de la date
-        minDate: "today", // Empêcher la sélection de dates passées
-        locale: "fr", // Langue (ici en français)
-        allowInput: false // Permet l'édition manuelle
-    });
+        flatpickr("#dateDebut", {
+            dateFormat: "Y-m-d", // Format de la date
+            minDate: "today", // Empêcher la sélection de dates passées
+            locale: "fr", // Langue (ici en français)
+            allowInput: false // Permet l'édition manuelle
+        });
+        flatpickr("#dateFin", {
+            dateFormat: "Y-m-d", // Format de la date
+            minDate: "today", // Empêcher la sélection de dates passées
+            locale: "fr", // Langue (ici en français)
+            allowInput: false // Permet l'édition manuelle
+        });
 
     </script>
    </x-app-layout>

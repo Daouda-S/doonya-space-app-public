@@ -104,7 +104,24 @@
                         </div>
                     </div>
                 </div>
-                
+                <!--  status Field -->
+                <div class="mb-4">
+                    <div class="form-group m-2">
+                        <label>Choisir le status</label>
+                        <select name="status" id="status" class="form-control form-select-sm" style="color: black" required>
+                            <option {{ old('status', $reservation['status']) == 'En cours de validation' ? 'selected' : '' }} value="En cours de validation">En cours de validation</option>
+                            <option {{ old('status', $reservation['status']) == 'Payé' ? 'selected' : '' }} value="Payé">Payé</option>
+                            <option {{ old('status', $reservation['status']) == 'Non payé' ? 'selected' : '' }} value="Non Payé"> Non Payé</option>
+                        </select>
+                    </div>
+                </div>
+                <!--  image Field -->
+                {{-- <div class="mb-4">
+                    <div class="form-group m-2">
+                        <label>Capture de paiement</label>
+                        <input type="file" name="image" id="image" value="{{ $reservation['image'] }}" class="form-control form-control-sm" required />
+                    </div>
+                </div> --}}
                 <div class="mt-6 mb-4 mx-2">
                     <button type="submit" id="submitBtn" class="btn btn-primary me-2">Envoyer</button>
                     <button class="btn btn-danger" id="cancelBtn" style="color: white"><a style="color: white; text-decoration:none" href="{{ route('admin.reservations') }}">Annuler</a></button>

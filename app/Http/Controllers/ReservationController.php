@@ -60,6 +60,8 @@ class ReservationController extends Controller
             'dateDebut' => 'required|date',
             'dateFin' => 'required|date',
             'prix' => 'required|integer',
+            'status' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'option.*' => 'nullable|integer',
         ]);
         
@@ -69,9 +71,10 @@ class ReservationController extends Controller
         $reservation->dateDebut = $request->dateDebut;
         $reservation->dateFin = $request->dateFin;
         $reservation->prix = $request->prix;
+        $reservation->status = $request->status;
+        $reservation->image = $request->image->store('upload/reservation/images', 'public');
         $reservation->save();    
         
-
         if ( $request->option ){
             foreach ( $request->option as $option ){
                 $option = (int) $option;
@@ -113,42 +116,55 @@ class ReservationController extends Controller
 
     public function update(Request $request, Reservation $reservation)
     {
-
         Validator::extend('custom_datetime', function ($attribute, $value, $parameters, $validator) {
             $format = 'd/m/Y H:i'; // Custom datetime format
             $date = \DateTime::createFromFormat($format, $value);
             return $date && $date->format($format) === $value;
         });
-        
-
+    
+        // Validation des données de la requête
         $validation = $request->validate([
             'espace' => 'required|string',
             'user' => 'required|string',
             'dateDebut' => 'required|date',
             'dateFin' => 'required|date',
             'prix' => 'required|integer',
+            'status' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // image est nullable
             'option.*' => 'nullable|integer',
         ]);
-
+    
         try {
+            // Mise à jour des autres champs
             $reservation->espace_id = $request->espace;
             $reservation->user_id = $request->user;
             $reservation->dateDebut = $request->dateDebut;
             $reservation->dateFin = $request->dateFin;
             $reservation->prix = $request->prix;
-            $reservation->save();
-            
-            $reservation->options()->detach();
-            if ($request->has('option')) {
-            foreach ( $request->option as $option ){
-                $reservationOption = new ReservationOption();
-                $reservationOption->reservation_id = $reservation->id;
-                $reservationOption->espace_option_id = $option;
-                $reservationOption->save();
+            $reservation->status = $request->status;
+    
+            // Vérifier si une nouvelle image a été téléchargée
+            if ($request->hasFile('image')) {
+                // Stocker la nouvelle image et mettre à jour le champ image
+                $reservation->image = $request->image->store('upload/reservation/images', 'public');
             }
-        }
+    
+            // Sauvegarder les changements de réservation
+            $reservation->save();
+    
+            // Gérer les options associées à la réservation
+            $reservation->options()->detach(); // Détacher les anciennes options
+            if ($request->has('option')) {
+                foreach ($request->option as $option) {
+                    $reservationOption = new ReservationOption();
+                    $reservationOption->reservation_id = $reservation->id;
+                    $reservationOption->espace_option_id = $option;
+                    $reservationOption->save();
+                }
+            }
+    
             // Message de succès
-            session()->flash('success', 'reservation mise à jour avec succès');
+            session()->flash('success', 'Réservation mise à jour avec succès');
             return redirect()->route('admin.reservations');
         } catch (\Exception $e) {
             // Message d'erreur en cas de problème
@@ -156,7 +172,7 @@ class ReservationController extends Controller
             return redirect()->route('admin.reservations.edit', $reservation);
         }
     }
-
+    
     public function destroy($id)
     {
         // Récupérer la reservation à supprimer avec ses relations avec les options

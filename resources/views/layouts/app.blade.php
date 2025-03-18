@@ -93,8 +93,8 @@
                     <div class="col-lg-3 col-md-6 ">
                       <h4>Suivez Nous</h4>
                       <div class="social-links d-flex">
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://www.facebook.com/doonyalabs" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="https://www.linkedin.com/company/doonyalabs/" class="linkedin"><i class="bi bi-linkedin"></i></a>
                       </div>
                     </div>
             

@@ -9,7 +9,7 @@ use App\Http\Controllers\OptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TemporaryImageController;
-
+use App\Http\Controllers\PayementController;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -31,22 +31,25 @@ Route::get('/reservationPages/reservation', function () {
 
 // admin dashboard
 
-// Route::get('admin/dashboard',[HomeController::class , 'index' ]);
-
 // user pages
 
 Route::get('pages/apropos',[PagesController::class , 'apropos' ])->name('pages.apropos');;
 Route::get('pages/boutique',[PagesController::class , 'boutique' ])->name('pages.boutique');;
 Route::get('pages/services',[PagesController::class , 'services' ])->name('pages.services');;
 
-Route::get('/apropos',[PagesController::class , 'wapropos' ])->name('welcomePages.apropos');;
-Route::get('/boutique',[PagesController::class , 'wboutique' ])->name('welcomePages.boutique');;
-Route::get('/services',[PagesController::class , 'wservices' ])->name('welcomePages.services');;
+// Route::get('/apropos',[PagesController::class , 'wapropos' ])->name('welcomePages.apropos');;
+// Route::get('/boutique',[PagesController::class , 'wboutique' ])->name('welcomePages.boutique');;
+// Route::get('/services',[PagesController::class , 'wservices' ])->name('welcomePages.services');;
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // payement.....
+    Route::get('payement/create/{reservation}',[PayementController::class, 'create' ])->name('payement.create');
+    Route::post('payement/save',[PayementController::class, 'save' ])->name('payement.save');
+    Route::post('payement/validate',[PayementController::class, 'validate' ])->name('payement.validate');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

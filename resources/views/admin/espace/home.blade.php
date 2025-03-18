@@ -91,6 +91,8 @@
                                             <p> Description : {{ $espace['description'] }}</p>
                                             <p> Status : {{ $espace->status }}</p>
                                             <p> Prix : {{ $espace['prix'] }} Fcfa</p>
+                                            <p> Taille de l'espace : {{ $espace['taille'] }} </p>
+                                            <p> Le nombre de personne que peut contenir l'espace : {{ $espace['capacite'] }} </p>
                                             <p> Options Supplementaires : 
                                                 @forelse ( $espace->options as $option)
                                                     <strong>{{ $option['materiel'] }} - </strong>

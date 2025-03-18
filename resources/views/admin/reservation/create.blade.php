@@ -13,19 +13,11 @@
                 @csrf
                 <!-- espace Field -->
                 <div class="mb-4">
-                    {{-- <label class="block text-sm font-medium text-gray-700">Espace</label> --}}
-                    {{-- <select name="espace" id="espace" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
-                        <option value="">Choisissez un espace</option>
-                        @foreach(\App\Models\Espace::all() as $espace)
-                            <option value="{{ $espace->id }}">{{ $espace->nom }}</option>
-                        @endforeach
-                    </select> --}}
-                        
-                        <div class="form-group m-2">
-                            <label>Nom de l'espace</label>
-                            <input type="text" hidden value="{{ $espace->id }}" id="espace" name="espace" class="form-control form-control-sm" required />
-                            <input type="text" value="{{ $espace->nom }}" readonly class="form-control form-control-sm" required />
-                        </div>
+                    <div class="form-group m-2">
+                        <label>Nom de l'espace</label>
+                        <input type="text" hidden value="{{ $espace->id }}" id="espace" name="espace" class="form-control form-control-sm" required />
+                        <input type="text" value="{{ $espace->nom }}" readonly class="form-control form-control-sm" required />
+                    </div>
                     @error('espace')
                         <label class="text-danger">{{ $message }}</label>
                     @enderror
@@ -40,7 +32,6 @@
                             @foreach($users as $user)
                             <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
-                            {{-- <option value="create_new">Créer un nouvel utilisateur</option> --}}
                         </select>
                     </div>
                     @error('user')
@@ -82,6 +73,32 @@
                     @enderror
                 </div>
 
+                <!-- status Field -->
+                <div class="mb-4">
+                    <div class="form-group m-2">
+                        <label>Status</label>
+                        <input type="text" name="status" id="status" class="form-control form-control-sm" required />
+                    </div>
+                    @error('status')
+                        <label class="text-danger">{{ $message }}</label>
+                    @enderror
+                </div>
+                
+                <!-- Email Field -->
+                <div class="mb-4">
+                    <div class="form-group m-2">
+                        <label>Capture de paiement</label>
+                        <select name="status" id="status" class="form-control form-select-sm" style="color: black" required>
+                            <option value="En cours de validation">En cours de validation</option>
+                            <option value="Payé">Payé</option>
+                            <option value="Non payé"> Non Payé</option>
+                        </select>
+                    </div>
+                    @error('image')
+                        <label class="text-danger">{{ $message }}</label>
+                    @enderror
+                </div>
+
                 <!-- Options Field -->
                 <div class="mb-2 row m-2">
                     <label class=" col-3 block text-sm font-medium text-gray-700">Choisir les options :</label>
@@ -92,7 +109,7 @@
                                     type="checkbox" 
                                     name="option[]"
                                     value="{{ $option['id'] }}" 
-                                    id="options" 
+                                    id="options"
                                     class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                 />
                                 <label for="option-{{ $option['id'] }}" class="text-sm text-gray-700">

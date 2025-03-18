@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     protected $table = 'reservations';
-    protected $fillable = ['id','espace_id', 'user_id','dateDebut', 'dateFin', 'prix'];
+    protected $fillable = ['id','espace_id', 'user_id','dateDebut','status','image', 'dateFin', 'prix', 'phone'];
 
     // Conversion automatique des champs en instances Carbon
     protected $dates = ['dateDebut', 'dateFin', 'created_at', 'updated_at'];

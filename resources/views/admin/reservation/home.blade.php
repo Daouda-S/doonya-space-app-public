@@ -28,6 +28,8 @@
                           <th>Date de debut</th>
                           <th>Date de fin</th>
                           <th>Prix</th>
+                          <th>Status</th>
+                          <th>Image</th>
                           <th>Option</th>
                         </tr>
                       </thead>
@@ -49,9 +51,22 @@
                             <td >{{ $reservation['dateDebut'] }}</td>
                             <td >{{ $reservation['dateFin'] }}</td>
                             <td >{{ $reservation['prix'] }} Fcfa</td>
+                            <td >
+                              @if ($reservation['status'] == 'En cours de validation')
+                                <span class="text-warning">{{ $reservation['status'] }}</span>
+                              @elseif ($reservation['status'] == 'Payé')
+                                <span class="text-success">{{ $reservation['status'] }}</span>
+                              @elseif ($reservation['status'] == 'Non payé')
+                                <span class="text-danger">{{ $reservation['status'] }}</span>
+                              @endif
+                            </td>
+                            <td ><img class="rounded " height="50px" width="50px" src="{{ asset('storage/' . $reservation['image']) }}" alt="Image espace" /></td> 
                             <td class=" row relative px-6 py-5">
                                     <a  class=" col-4 text-sm text-center" href="{{ route('admin.reservations.edit', $reservation['id']) }}">
                                           <i id="pencil" class="icon-layout menu-icon mdi mdi-pencil" style="color: #16a34a;font-size: 25px;"></i>
+                                    </a>
+                                    <a id="eye" class=" col-2 text-sm text-center"href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $reservation->id }}">
+                                      <i class="icon-layout menu-icon mdi mdi-eye" style="color: #1f4b99;font-size: 25px;"></i>
                                     </a>
                                 <form class="col-4" action="{{ route('admin.reservations.destroy', $reservation['id']) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette option ?');">
                                     @csrf
@@ -62,6 +77,43 @@
                                 </form>
                             </td>
                         </tr>
+                        <!-- Modale pour afficher toutes les images -->
+                        <div class="modal fade" id="allImagesModal{{ $reservation->id }}" tabindex="-1" aria-labelledby="allImagesModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width: 95%;">
+                                <div class="modal-content">
+                                    <div class="modal-header"> 
+                                        <h5 class="modal-title" id="allImagesModalLabel">Doonya Space Application de reservation.</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p> ID : {{ $reservation['id'] }}</p>
+                                        <p> Client : {{ $reservation->user->name }}</p>
+                                        <p> Espace : {{ $reservation->espace->nom }}</p>
+                                        <p> Options Supplementaires : 
+                                            @forelse ( $reservation->options as $option)
+                                                <li>{{ $option->option->matricule }}</li>
+                                            @empty
+                                                <li style="color: #ef4444">pas d'option supplementaire</li>
+                                            @endforelse
+                                        </p>
+                                        <p> Date de debut : {{ $reservation['dateDebut'] }}</p>
+                                        <p> Date de fin : {{ $reservation['dateFin'] }}</p>
+                                        <p> Prix : {{ $reservation['prix'] }} Fcfa</p>
+                                        <p>Status : 
+                                            @if ($reservation['status'] == 'En cours de validation')
+                                            <span class="text-warning">{{ $reservation['status'] }}</span>
+                                          @elseif ($reservation['status'] == 'Payé')
+                                            <span class="text-success">{{ $reservation['status'] }}</span>
+                                          @elseif ($reservation['status'] == 'Non payé')
+                                            <span class="text-danger">{{ $reservation['status'] }}</span>
+                                          @endif
+                                        </p>
+                                        <p> Image : <img class="rounded " height="200px" width="200px" src="{{ asset('storage/' . $reservation['image']) }}" alt="Image espace" /></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         @empty
                         <tr class="border-b hover:bg-gray-100">
                             <td >Pas de reservation disponible</td>

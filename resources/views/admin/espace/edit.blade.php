@@ -74,6 +74,28 @@
                     @enderror
                 </div>
 
+                <!-- Email Field -->
+                <div class="mb-4">
+                    <div class="form-group m-2">
+                    <label>Taille de l'espace</label>
+                    <input type="text" name="taille" id="taille" value="{{ old('matricule', $espace->taille) }}" class="form-control form-select-sm" required />
+                    </div>
+                    @error('taille')
+                        <label class="text-danger">{{ $message }}</label>
+                    @enderror
+                </div>
+
+                <!-- Email Field -->
+                <div class="mb-4">
+                    <div class="form-group m-2">
+                    <label>Le nombre de personne que peut contenir l'espace</label>
+                    <input type="number" name="capacite" id="capacite" value="{{ old('matricule', $espace->capacite) }}" class="form-control form-select-sm" required />
+                    </div>
+                    @error('capacite')
+                        <label class="text-danger">{{ $message }}</label>
+                    @enderror
+                </div>
+
                 <!-- Options Field -->
                 <div class="mb-4">
                     <div class="form-group m-2">

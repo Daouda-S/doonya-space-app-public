@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class Espace extends Model
 {
     protected $table = 'espaces';
-    protected $fillable = ['nom', 'description', 'status', 'prix'];
+    protected $fillable = ['nom', 'description', 'status', 'prix', 'taille', 'capacite'];
 
     // Relation : Une option peut avoir plusieurs images
     public function espaceImage()

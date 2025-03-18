@@ -24,6 +24,11 @@
     <!-- endinject -->
     <link href={{ asset('images/logo-r.jpg') }} rel="icon">
     <link href={{ asset('assets/img/apple-touch-icon.png') }} rel="apple-touch-icon">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
   </head>
   <body>

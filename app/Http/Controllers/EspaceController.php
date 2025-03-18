@@ -33,6 +33,8 @@ class EspaceController extends Controller
             'description' => 'required|string',
             'status' => 'required|string',
             'prix' => 'required|integer',
+            'taille' => 'required|string',
+            'capacite' => 'required|integer',
             'option.*' => 'nullable|integer',
             'espace_image.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
@@ -43,6 +45,8 @@ class EspaceController extends Controller
         $espace->description = $request->description;
         $espace->status = $request->status;
         $espace->prix = $request->prix;
+        $espace->taille = $request->taille;
+        $espace->capacite = $request->capacite;
         $espace->save();
 
         if ( $request->option ){
@@ -91,22 +95,23 @@ class EspaceController extends Controller
             'description' => 'nullable|string',
             'status' => 'required|string',
             'prix' => 'required|integer',
+            'taille' => 'required|string',
+            'capacite' => 'required|integer',
             'option.*' => 'nullable|integer',
             'espace_image.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
-
         
-
+        
         try {
             
             $espace->nom = $request->nom;
             $espace->description = $request->description;
             $espace->status = $request->status;
             $espace->prix = $request->prix;
+            $espace->taille = $request->taille;
+            $espace->capacite = $request->capacite;
             $espace->save();
             
-
-            // dd($request->option);
             
             // Si des nouvelles options sont sélectionnées
             // Suppression ou ajout des anciennes options liées à cet espace

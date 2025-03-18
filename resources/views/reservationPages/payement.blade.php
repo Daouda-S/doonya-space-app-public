@@ -20,25 +20,26 @@
                         <div class="">
                                 <h1 style=" font-size: 2.5rem ; font-weight: 600">Payer maintenant</h1>
                                 
-                                <form action="#" method="POST">
+                                <form action="{{ route('payement.validate') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="espace" value="{{ $reservation->espace_id }}">
+                                    <input type="hidden" name="user" value="{{ $reservation->user_id }}">
+                                    <input type="hidden" name="dateDebut" value="{{ $reservation->dateDebut }}">    
+                                    <input type="hidden" name="dateFin" value="{{ $reservation->dateFin }}">
+                                    <input type="hidden" name="prix" value="{{ $reservation->prix }}">
+                                    <input type="hidden" name="status" value="En cours de validation">
                                     <!-- Name Field -->
                                     <div class="mb-4">
-                                        <label for="name" class="block text-sm font-medium text-gray-700">Nom</label>
-                                        <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+                                        <label for="name" class="block text-sm font-medium text-gray-700">Numero de telephone</label>
+                                        <input type="number" id="phone" name="phone" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
                                     </div>
                         
                                     <!-- Email Field -->
                                     <div class="mb-4">
-                                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                        <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+                                        <label for="email" class="block text-sm font-medium text-gray-700">Capture de la transaction</label>
+                                        <input type="file" id="image" name="image" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
                                     </div>
-                        
-                                    <!-- Message Field -->
-                                    <div class="mb-4">
-                                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required></textarea>
-                                    </div>
-                        
+
                                     <!-- Submit Button -->
                                     <div class="mt-6">
                                         <button style="padding: 12px 24px; margin-top: 20px; background-color: #3b82f6; color: white; font-weight: 600; border-radius: 8px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); cursor: pointer; transition: all 0.3s ease;" 
@@ -46,7 +47,7 @@
                                                 onmouseout="this.style.backgroundColor='#3b82f6'" 
                                                 onfocus="this.style.boxShadow='0 0 0 4px rgba(59, 130, 246, 0.3)'" 
                                                 onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
-                                            Envoyer
+                                            Valider le paiement
                                         </button>
                                     </div>
                                 </form>
