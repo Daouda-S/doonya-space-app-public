@@ -11,16 +11,21 @@
           </div>
         </div>
       </div><!-- End Page Title -->
+          @if (Session()->has('error'))
 
+        <div style=" margin:2px; position: relative; display: grid; align-items: center; font-family: 'Sans-serif'; font-weight: bold; text-transform: uppercase; white-space: nowrap; user-select: none; background-color: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 0.375rem; opacity: 1;">
+            {{ Session::get('error') }}
+        </div>
+    @endif
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden relative flex justify-center items-center shadow-sm sm:rounded-lg">
                 <div class="grid grid-cols-2 sm:grid-cols-2 gap-6 p-6 text-gray-900">
                     <!-- Left Column: Text -->
                         <div class="">
-                                <h1 style=" font-size: 2.5rem ; font-weight: 600">Payer maintenant</h1>
+                                <h1 class="mb-4" style=" font-size: 2.5rem ; font-weight: 600">Payer maintenant</h1>
                                 
-                                <form action="{{ route('payement.validate') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('payement.validate',$reservation->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="espace" value="{{ $reservation->espace_id }}">
                                     <input type="hidden" name="user" value="{{ $reservation->user_id }}">
@@ -29,6 +34,10 @@
                                     <input type="hidden" name="prix" value="{{ $reservation->prix }}">
                                     <input type="hidden" name="status" value="En cours de validation">
                                     <!-- Name Field -->
+                                    <h3 class="text-danger mb-4">Veillez remplir suivre les instructions</h3>
+                                    <p class="mb-2" >Saisissez ce code sur votre compte mobile Orange money : *144*2*1*67400675*{{ $reservation->prix }}#</p>
+                                    <p class="mb-2" > ou <br> sur votre compte mobile Moov money : *555*2*1*60230614*{{ $reservation->prix }}#</p>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-4 text-danger">apres avoir payer, remplissez le formulaire ci-dessous avec une capture de la transaction</label>
                                     <div class="mb-4">
                                         <label for="name" class="block text-sm font-medium text-gray-700">Numero de telephone</label>
                                         <input type="number" id="phone" name="phone" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />

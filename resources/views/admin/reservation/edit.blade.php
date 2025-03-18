@@ -111,7 +111,7 @@
                         <select name="status" id="status" class="form-control form-select-sm" style="color: black" required>
                             <option {{ old('status', $reservation['status']) == 'En cours de validation' ? 'selected' : '' }} value="En cours de validation">En cours de validation</option>
                             <option {{ old('status', $reservation['status']) == 'Payé' ? 'selected' : '' }} value="Payé">Payé</option>
-                            <option {{ old('status', $reservation['status']) == 'Non payé' ? 'selected' : '' }} value="Non Payé"> Non Payé</option>
+                            {{-- <option {{ old('status', $reservation['status']) == 'Non payé' ? 'selected' : '' }} value="Non Payé"> Non Payé</option> --}}
                         </select>
                     </div>
                 </div>

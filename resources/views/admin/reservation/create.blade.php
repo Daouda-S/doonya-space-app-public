@@ -91,7 +91,7 @@
                         <select name="status" id="status" class="form-control form-select-sm" style="color: black" required>
                             <option value="En cours de validation">En cours de validation</option>
                             <option value="Payé">Payé</option>
-                            <option value="Non payé"> Non Payé</option>
+                            {{-- <option value="Non payé"> Non Payé</option> --}}
                         </select>
                     </div>
                     @error('image')

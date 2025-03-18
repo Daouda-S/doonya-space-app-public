@@ -25,21 +25,17 @@ Route::get('/index', function () {
 
 Route::get('reservationPages/index/{espace}',[PagesController::class , 'createReservation' ])->middleware(['auth', 'verified'])->name('reservationPages.index');
 
-Route::get('/reservationPages/reservation', function () {
-    return view('reservationPages.reservation');
-})->middleware(['auth', 'verified'])->name('reservationPages.reservation');
+Route::get('/reservationPages/payement', function () {
+    return view('reservationPages.payement');
+})->middleware(['auth', 'verified'])->name('reservationPages.payement');
 
 // admin dashboard
 
 // user pages
 
-Route::get('pages/apropos',[PagesController::class , 'apropos' ])->name('pages.apropos');;
-Route::get('pages/boutique',[PagesController::class , 'boutique' ])->name('pages.boutique');;
-Route::get('pages/services',[PagesController::class , 'services' ])->name('pages.services');;
-
-// Route::get('/apropos',[PagesController::class , 'wapropos' ])->name('welcomePages.apropos');;
-// Route::get('/boutique',[PagesController::class , 'wboutique' ])->name('welcomePages.boutique');;
-// Route::get('/services',[PagesController::class , 'wservices' ])->name('welcomePages.services');;
+Route::get('pages/apropos',[PagesController::class , 'apropos' ])->name('pages.apropos');
+Route::get('pages/boutique',[PagesController::class , 'boutique' ])->name('pages.boutique');
+Route::get('pages/services',[PagesController::class , 'services' ])->name('pages.services');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -49,7 +45,9 @@ Route::middleware('auth')->group(function () {
     // payement.....
     Route::get('payement/create/{reservation}',[PayementController::class, 'create' ])->name('payement.create');
     Route::post('payement/save',[PayementController::class, 'save' ])->name('payement.save');
-    Route::post('payement/validate',[PayementController::class, 'validate' ])->name('payement.validate');
+    Route::post('payement/validate/{reservation}',[PayementController::class, 'validate' ])->name('payement.validate');
+    Route::get('payement/success/{reservation}',[PayementController::class, 'success' ])->name('payement.success');
+    Route::get('payement/download/{id}',[PayementController::class, 'download' ])->name('payement.download');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -83,6 +81,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('admin/reservations/{reservation}', [ReservationController::class, 'update'])->name('admin.reservations.update');
     Route::get('admin/reservationsOption/{espace_id}', [ReservationController::class, 'getOptionsByEspace'])->name('admin.reservationsOption');
     // Route::get('/espace/{espaceId}/options', [ReservationController::class, 'getOptionsByEspace'])->name('espace.options');
+    // Route::put('admin/reservation/status/{reservation}',[ReservationController::class, 'status' ])->name('admin.reservations.status');
 
 });
 

@@ -8,8 +8,6 @@
         </div>
     @endif --}}
 
-
-
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
           <div class="card">
@@ -53,11 +51,14 @@
                             <td >{{ $reservation['prix'] }} Fcfa</td>
                             <td >
                               @if ($reservation['status'] == 'En cours de validation')
-                                <span class="text-warning">{{ $reservation['status'] }}</span>
+                                <span class="text-warning spanHover">{{ $reservation['status'] }}</span>
+                                {{-- <form class="formHover" action="{{ route('admin.reservations.status', $reservation['id']) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                </form> --}}
                               @elseif ($reservation['status'] == 'Payé')
                                 <span class="text-success">{{ $reservation['status'] }}</span>
-                              @elseif ($reservation['status'] == 'Non payé')
-                                <span class="text-danger">{{ $reservation['status'] }}</span>
                               @endif
                             </td>
                             <td ><img class="rounded " height="50px" width="50px" src="{{ asset('storage/' . $reservation['image']) }}" alt="Image espace" /></td> 
@@ -99,16 +100,15 @@
                                         <p> Date de debut : {{ $reservation['dateDebut'] }}</p>
                                         <p> Date de fin : {{ $reservation['dateFin'] }}</p>
                                         <p> Prix : {{ $reservation['prix'] }} Fcfa</p>
+                                        <p> Telephone : {{ $reservation['phone'] }}</p>
                                         <p>Status : 
                                             @if ($reservation['status'] == 'En cours de validation')
-                                            <span class="text-warning">{{ $reservation['status'] }}</span>
-                                          @elseif ($reservation['status'] == 'Payé')
-                                            <span class="text-success">{{ $reservation['status'] }}</span>
-                                          @elseif ($reservation['status'] == 'Non payé')
-                                            <span class="text-danger">{{ $reservation['status'] }}</span>
-                                          @endif
+                                              <span class="text-danger">{{ $reservation['status'] }}</span>
+                                            @elseif ($reservation['status'] == 'Payé')
+                                              <span class="text-success">{{ $reservation['status'] }}</span>
+                                            @endif
                                         </p>
-                                        <p> Image : <img class="rounded " height="200px" width="200px" src="{{ asset('storage/' . $reservation['image']) }}" alt="Image espace" /></p>
+                                        <p> Image : <img class="rounded " height="400px" width="400px" src="{{ asset('storage/' . $reservation['image']) }}" alt="Image espace" /></p>
                                     </div>
                                 </div>
                             </div>
