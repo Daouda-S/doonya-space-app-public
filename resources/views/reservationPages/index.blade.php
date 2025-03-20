@@ -197,8 +197,6 @@
                   </div>
               </div>
             </div>
-
-            
               @endif
             </div>
 
@@ -280,7 +278,8 @@
                   prix.value = prixParJour+calcule;
               } else {
                   // Calculer le prix total basé sur la durée
-                  const totalPrix = diffDays * prixParJour + prixParJour + calcule;
+                  const prixOptions = diffDays * calcule + calcule;
+                  const totalPrix = diffDays * prixParJour + prixOptions + prixParJour;
                   prix.value = totalPrix;
               }
           } else {

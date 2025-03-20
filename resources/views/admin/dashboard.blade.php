@@ -1,4 +1,4 @@
-<x-sidebar-layout>
+<x-sidebar-layout >
 
             <div class="row">
               <div class="col-md-12 grid-margin">

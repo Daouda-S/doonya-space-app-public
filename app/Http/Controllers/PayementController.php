@@ -154,10 +154,12 @@ class PayementController extends Controller
         $pdf->Cell(50, 7, 'Lieu : Bd Tensoba Zoobdo, rue 17.69 porte 333, Secteur 06', 0, 1, 'L');  // Valeur du nom d'utilisateur
         $pdf->Ln(5);
 
-        $date = new DateTime($reservation->dateDebut);
-        $dateFormattedDebut = $date->format('d/m/Y');
-        $date = new DateTime($reservation->dateFin);
-        $dateFormattedFin = $date->format('d/m/Y');
+        $dateDebut = new DateTime($reservation->dateDebut);
+        $dateFormattedDebut = $dateDebut->format('d/m/Y');
+        $dateFin = new DateTime($reservation->dateFin);
+        $dateFormattedFin = $dateFin->format('d/m/Y');
+        $interval = $dateDebut->diff($dateFin);
+        $diffDays = $interval->days + 1;
 
         $pdf->Cell(30, 5,'Réservation du : '.$dateFormattedDebut.' au : '.$dateFormattedFin, 0, 1, 'L');  // Valeur du nom d'utilisateur
         $pdf->Cell(50, 5, 'Status de la réservation : '.$reservation->status,0, 1, 'L');
@@ -177,9 +179,9 @@ class PayementController extends Controller
         $pdf->Cell(35, 10,'','LR',1, 'L');
 
         $pdf->Cell(80, 5, $reservation->espace->nom,'LR', 0, 'L');
-        $pdf->Cell(35, 5, '2', 'LR', 0, 'C');
-        $pdf->Cell(35, 5, number_format($reservation->prix, 2) . ' FCFA', 'LR', 0, 'C');
-        $pdf->Cell(35, 5, number_format($reservation->prix, 2) . ' FCFA', 'LR', 1, 'C');
+        $pdf->Cell(35, 5, $diffDays, 'LR', 0, 'C');
+        $pdf->Cell(35, 5, $reservation->espace->prix. ' FCFA', 'LR', 0, 'C');
+        $pdf->Cell(35, 5, $reservation->espace->prix*$diffDays . ' FCFA', 'LR', 1, 'C');
 
         if ($reservation->options->isNotEmpty()) {
             $pdf->Cell(80, 10, 'Options supplémentaires','LR', 0, 'L');
@@ -188,9 +190,9 @@ class PayementController extends Controller
             $pdf->Cell(35, 10,'','LR',1, 'L');
             foreach ($reservation->options as $option) {
                 $pdf->Cell(80, 5, '- ' . $option->option->materiel, 'LR', 0,'L');
-                $pdf->Cell(35, 5,'','LR',0, 'L');
-                $pdf->Cell(35, 5,'','LR',0, 'L');
-                $pdf->Cell(35, 5,'','LR',1, 'L');
+                $pdf->Cell(35, 5,$diffDays,'LR',0, 'C');
+                $pdf->Cell(35, 5, $option->option->prix . ' FCFA', 'LR', 0, 'C');
+                $pdf->Cell(35, 5, $option->option->prix * $diffDays . ' FCFA', 'LR', 1, 'C');
             }
         }
         $pdf->Cell(80, 5,'','LR',0, 'L');
@@ -199,7 +201,7 @@ class PayementController extends Controller
         $pdf->Cell(35, 5,'','LR',1, 'L');
 
         $pdf->Cell(150, 10, 'Total', 1, 0, 'C');
-        $pdf->Cell(35, 10, number_format($reservation->prix, 2) . ' FCFA', 1, 1, 'C');
+        $pdf->Cell(35, 10, $reservation->prix. ' FCFA', 1, 1, 'C');
         $pdf->Ln(10);
 
         // $pdf->SetFont('Helvetica', 'I', 12);
@@ -212,7 +214,7 @@ class PayementController extends Controller
         //     $pdf->Ln(45);  // Déplace le curseur en dessous de l'image
         // }
         
-        $pdf->Ln(100);
+        $pdf->Ln(70);
 
         // Lignes de séparation
         $pdf->Line(5, $pdf->GetY(), 200, $pdf->GetY());
