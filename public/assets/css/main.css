@@ -882,7 +882,7 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 20%);
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   position: absolute;
-  bottom: -125px;
+  bottom: -170px;
   left: 20px;
   right: 20px;
   padding: 20px 15px;

@@ -23,7 +23,7 @@
                 <div class="grid grid-cols-2 sm:grid-cols-2 gap-6 p-6 text-gray-900">
                     <!-- Left Column: Text -->
                         <div class="">
-                                <h1 class="mb-4" style=" font-size: 2.5rem ; font-weight: 600">Payer maintenant</h1>
+                                <h1 class="mb-4 text-danger" style=" font-size: 2rem ; font-weight: 600">Veillez remplir suivre les instructions</h1>
                                 
                                 <form action="{{ route('payement.validate',$reservation->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
@@ -34,9 +34,15 @@
                                     <input type="hidden" name="prix" value="{{ $reservation->prix }}">
                                     <input type="hidden" name="status" value="En cours de validation">
                                     <!-- Name Field -->
-                                    <h3 class="text-danger mb-4">Veillez remplir suivre les instructions</h3>
-                                    <p class="mb-2" >Saisissez ce code sur votre compte mobile Orange money : *144*2*1*67400675*{{ $reservation->prix }}#</p>
-                                    <p class="mb-2" > ou <br> sur votre compte mobile Moov money : *555*2*1*60230614*{{ $reservation->prix }}#</p>
+                                    <h3 class=" mb-3">Saisissez ce code sur votre compte mobile</h3>
+                                    <div class="mb-2 row">
+                                        <img class="col-6 p-0" src="{{ asset('images/orange.jpg') }}" alt="Image" style="width: 150px; height: 100px;">
+                                        <p class="mb-2 pt-5 mx-4 col-6 fs-3" >*144*2*1*67400675*{{ $reservation->prix }}#</p>
+                                    </div>
+                                    <div class="mb-2 row">
+                                        <img class="col-6 mx-5 p-0" src="{{ asset('images/moov.png') }}" alt="Image" style="width: 100px; height: 100px;">
+                                        <p class="mb-2 pt-5 col-6 fs-3" >*555*2*1*60230614*{{ $reservation->prix }}#</p>
+                                    </div>
                                     <label for="name" class="block text-sm font-medium text-gray-700 mb-4 text-danger">apres avoir payer, remplissez le formulaire ci-dessous avec une capture de la transaction</label>
                                     <div class="mb-4">
                                         <label for="name" class="block text-sm font-medium text-gray-700">Numero de telephone</label>
@@ -63,7 +69,7 @@
                         </div>
                     <!-- Right Column: Image -->
                     <div class="" style="height: 20em ; width:30rem">
-                        <div class="absolute" style="right: 5em; top:13.5em ; font-size:2rem ; font-weight: 600"><h1>Veillez suivre les instructions</h1></div>
+                        {{-- <div class="absolute" style="right: 5em; top:13.5em ; font-size:2rem ; font-weight: 600"><h1>Veillez suivre les instructions</h1></div> --}}
                         <img src="{{ asset('images/contact.jpg') }}" alt="Image">
                     </div>
                 </div>

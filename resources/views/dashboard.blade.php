@@ -178,7 +178,7 @@
                           <img src="{{ asset('images/individuel2.jpg') }}" alt="" class="img-fluid">
                           <div class="card-body">
                             <span class="sale-rent">Voir Plus</span>
-                            <h3><p class="stretched-link">Espace de Co-Working VIP</a></h3>
+                            <h3><p class="stretched-link" style="color: white ">Espace de Co-Working VIP</p></h3>
                             <div class="card-content d-flex flex-column justify-content-center text-center">
                                 <div class="row propery-info">
                                     {{-- <div class="col">Canapé</div> --}}

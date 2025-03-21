@@ -72,12 +72,18 @@
                       <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
                     </div>
     
-                    <div class="col-md-12 text-center">
-                      <div class="loading">Chargement</div>
-                      <div class="error-message"></div>
-                      <div class="sent-message">Vous avez envoyez un message Merci beaucoup!</div>
-    
-                      <button type="submit">Envoyer</button>
+                    <div class="col-md-12">
+                      <div class="text-center">
+                        <div class="loading">Chargement</div>
+                        <div class="error-message"></div>
+                        <div class="sent-message">Vous avez envoyez un message Merci beaucoup!</div>
+                      </div>
+                      <button class="btn" style="background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                        onmouseover="this.style.backgroundColor='#154f8c'" 
+                        onmouseout="this.style.backgroundColor='#1f4b99'" 
+                        onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                        onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                        Envoyer</button>
                     </div>
     
                   </div>

@@ -52,7 +52,7 @@
                 <span class="count" style="color: #FFC100; background:none !important;left:50% ! important;top:-35% !important">{{ $notifications->count() }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                <p class="mb-0 font-weight-normal float-left dropdown-header"><span class="count" style="color: #FFC100">{{ $notifications->count() }}</span> Notifications</p>
+                <p class="mb-0 font-weight-normal float-left dropdown-header overflow-y-auto"><span class="count" style="color: #FFC100">{{ $notifications->count() }}</span> Notifications</p>
                 @foreach ($notifications as $notification)
                     <a href="/admin/reservations" class="dropdown-item preview-item">
                         <div class="preview-thumbnail">

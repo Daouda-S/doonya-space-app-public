@@ -13,7 +13,7 @@
         </div>
       </div><!-- End Page Title -->
 
-    <div class=" row py-10 m-5">
+    <div class=" row mx-3">
         <!-- Testimonials Section -->
     <!-- Hero Section -->
     <section class=" row gy-4">
