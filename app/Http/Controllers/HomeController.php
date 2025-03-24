@@ -12,7 +12,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $nbr_reservations = Reservation::count();
+        $nbr_reservations = Reservation::where('status','!=','Non payé')->count();
         $today_reservations = Reservation::whereDate('created_at', now()->toDateString())->count();
         $today_reservations_en_cours = Reservation::where('dateFin', '>=', now()->today())->count();
         $caisse = Reservation::sum('prix');

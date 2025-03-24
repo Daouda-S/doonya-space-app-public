@@ -116,12 +116,12 @@
                     </div>
                 </div>
                 <!--  image Field -->
-                {{-- <div class="mb-4">
+                <div class="mb-4">
                     <div class="form-group m-2">
                         <label>Capture de paiement</label>
                         <input type="file" name="image" id="image" value="{{ $reservation['image'] }}" class="form-control form-control-sm" required />
                     </div>
-                </div> --}}
+                </div>
                 <div class="mt-6 mb-4 mx-2">
                     <button type="submit" id="submitBtn" class="btn btn-primary me-2">Envoyer</button>
                     <button class="btn btn-danger" id="cancelBtn" style="color: white"><a style="color: white; text-decoration:none" href="{{ route('admin.reservations') }}">Annuler</a></button>

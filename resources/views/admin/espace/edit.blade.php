@@ -44,9 +44,9 @@
                     <div class="form-group m-2">
                     <label for="status">Status</label>
                     <select name="status" id="status" class="form-control form-select-sm" style="color: black" required>
-                        <option {{ old('status', $espace->status) == 'disponible' ? 'selected' : '' }} value="disponible">Disponible</option>
-                        <option {{ old('status', $espace->status) == 'indisponible' ? 'selected' : '' }} value="indisponible">Indisponible</option>
-                        <option {{ old('status', $espace->status) == 'déjà loué' ? 'selected' : '' }} value="déjà loué">Déjà loué</option>
+                        <option {{ old('status', $espace->status) == 'disponible' ? 'selected' : '' }} value="disponible">disponible</option>
+                        <option {{ old('status', $espace->status) == 'indisponible' ? 'selected' : '' }} value="indisponible">indisponible</option>
+                        <option {{ old('status', $espace->status) == 'déjà loué' ? 'selected' : '' }} value="déjà loué">déjà loué</option>
                     </select>
                     </div>
                     @error('status')

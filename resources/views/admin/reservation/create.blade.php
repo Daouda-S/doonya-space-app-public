@@ -77,7 +77,10 @@
                 <div class="mb-4">
                     <div class="form-group m-2">
                         <label>Status</label>
-                        <input type="text" name="status" id="status" class="form-control form-control-sm" required />
+                        <select name="status" id="status" class="form-control form-select-sm" style="color: black" required>
+                            <option value="En cours de validation">En cours de validation</option>
+                            <option value="Payé">Payé</option>
+                        </select>
                     </div>
                     @error('status')
                         <label class="text-danger">{{ $message }}</label>
@@ -86,14 +89,10 @@
                 
                 <!-- Email Field -->
                 <div class="mb-4">
-                    <div class="form-group m-2">
-                        <label>Capture de paiement</label>
-                        <select name="status" id="status" class="form-control form-select-sm" style="color: black" required>
-                            <option value="En cours de validation">En cours de validation</option>
-                            <option value="Payé">Payé</option>
-                            {{-- <option value="Non payé"> Non Payé</option> --}}
-                        </select>
-                    </div>
+                        <div class="form-group m-2">
+                            <label>Capture de paiement</label>
+                            <input type="file" name="image" id="image" class="form-control form-control-sm" required />
+                        </div>
                     @error('image')
                         <label class="text-danger">{{ $message }}</label>
                     @enderror

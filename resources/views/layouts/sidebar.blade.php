@@ -33,7 +33,7 @@
   </head>
   <body>
     @php
-        $notifications = App\Models\Reservation::where('status','En cours de validation')->get();
+    $notifications = App\Models\Reservation::where('status', 'En cours de validation')->orderBy('created_at', 'desc')->get();
     @endphp
     <div class="container-scroller">
       <!-- partial:partials/_navbar.html -->

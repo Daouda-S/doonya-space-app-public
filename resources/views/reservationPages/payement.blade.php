@@ -57,11 +57,11 @@
 
                                     <!-- Submit Button -->
                                     <div class="mt-6">
-                                        <button style="padding: 12px 24px; margin-top: 20px; background-color: #3b82f6; color: white; font-weight: 600; border-radius: 8px; border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); cursor: pointer; transition: all 0.3s ease;" 
-                                                onmouseover="this.style.backgroundColor='#2563eb'" 
-                                                onmouseout="this.style.backgroundColor='#3b82f6'" 
-                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(59, 130, 246, 0.3)'" 
-                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                        <button class=" btn" style="background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                            onmouseover="this.style.backgroundColor='#154f8c'" 
+                                            onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                            onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                            onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
                                             Valider le paiement
                                         </button>
                                     </div>

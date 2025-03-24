@@ -91,6 +91,10 @@ class ReservationController extends Controller
             }
         }
 
+        $espace = Espace::find($request->espace);
+        $espace->status = 'déjà loué';
+        $espace->save();
+
         if ($reservation) {
             session()->flash('success', 'Reservation créee avec succès');
             return redirect(route('admin.reservations'));
