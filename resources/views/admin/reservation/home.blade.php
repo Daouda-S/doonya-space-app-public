@@ -52,13 +52,10 @@
                             <td >
                               @if ($reservation['status'] == 'En cours de validation')
                                 <span class="text-warning spanHover">{{ $reservation['status'] }}</span>
-                                {{-- <form class="formHover" action="{{ route('admin.reservations.status', $reservation['id']) }}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit" class="btn btn-primary">Valider</button>
-                                </form> --}}
                               @elseif ($reservation['status'] == 'Payé')
                                 <span class="text-success">{{ $reservation['status'] }}</span>
+                              @elseif ($reservation['status'] == 'Terminée')
+                                <span class="text-primary">{{ $reservation['status'] }}</span>
                               @endif
                             </td>
                             <td ><img class="rounded " height="50px" width="50px" src="{{ asset('storage/' . $reservation['image']) }}" alt="Image espace" /></td> 
@@ -108,6 +105,8 @@
                                                   <span class="text-danger">{{ $reservation['status'] }}</span>
                                                 @elseif ($reservation['status'] == 'Payé')
                                                   <span class="text-success">{{ $reservation['status'] }}</span>
+                                                @elseif ($reservation['status'] == 'Terminée')
+                                                  <span class="text-primary">{{ $reservation['status'] }}</span>
                                                 @endif
                                             </p>
                                           </div>

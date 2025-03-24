@@ -9,6 +9,7 @@ use App\Models\Reservation;
 use Illuminate\Support\Arr;
 use App\Models\EspaceOption;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\ReservationOption;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,8 +18,13 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::with(['espace','options','user'])->where('status', '!=', 'Non payé')->get();
-        // $espaces = Espace::with(['options'])->get();
-        $total = Reservation::count();
+        foreach ($reservations as $reservation) {
+            // Vérifier si la date de fin est inférieure à aujourd'hui
+            if (Carbon::parse($reservation->dateFin)->isBefore(Carbon::today()) && $reservation->status !== 'Terminée') {
+                $reservation->status = 'Terminée';
+                $reservation->save();
+            }
+        }
         return view('admin.reservation.home', compact(['reservations']));
     }
 
@@ -106,16 +112,18 @@ class ReservationController extends Controller
 
     public function edit(Reservation $reservation)
     {
-         // Récupérer tous les espaces disponibles
-         $espaces = Espace::all();
-
-         // Récupérer tous les utilisateurs (si nécessaire, tu peux filtrer cela par rôle ou autre condition)
-         $users = User::all();
-         // Initialiser les options comme un tableau vide (elles seront chargées dynamiquement selon l'espace choisi)
-         $options = EspaceOption::with('espace')->where('espace_id', $reservation['espace_id'])->get();
- 
+        // Récupérer tous les espaces disponibles
+        $espaces = Espace::all();
+        $espace = Espace::find($reservation['espace_id']);
+        // Récupérer tous les utilisateurs (si nécessaire, tu peux filtrer cela par rôle ou autre condition)
+        $users = User::all();
+        // Initialiser les options comme un tableau vide (elles seront chargées dynamiquement selon l'espace choisi)
+        $options = EspaceOption::with('espace')->where('espace_id', $reservation['espace_id'])->get();
+        // Vérifier si les dates sont des instances de Carbon et les formater sans l'heure
+        $dateDebut = Carbon::parse($reservation->dateDebut)->format('Y-m-d');
+        $dateFin = Carbon::parse($reservation->dateFin)->format('Y-m-d');
          // Retourner la vue avec les données nécessaires
-         return view('admin.reservation.edit', compact( 'reservation', 'espaces', 'users', 'options'));
+         return view('admin.reservation.edit', compact( 'reservation', 'espaces', 'users', 'options', 'dateDebut', 'dateFin', 'espace'));
     }
 
     public function update(Request $request, Reservation $reservation)

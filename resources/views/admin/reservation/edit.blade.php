@@ -57,7 +57,7 @@
                 <div class="mb-4">
                     <div class="form-group m-2">
                         <label>Date de début</label>
-                        <input type="datetime-local" name="dateDebut" id="dateDebut" value="{{ $reservation['dateDebut'] }}" class="form-control form-control-sm" required />
+                        <input type="date" name="dateDebut" id="dateDebut" value="{{ $dateDebut }}" class="form-control form-control-sm" required />
                     </div>
                     @error('dateDebut')
                         <label class="text-danger">{{ $message }}</label>
@@ -68,11 +68,16 @@
                 <div class="mb-4">
                     <div class="form-group m-2">
                         <label>Date de fin</label>
-                        <input type="datetime-local" name="dateFin" id="dateFin" value="{{ $reservation['dateFin'] }}" class="form-control form-control-sm" required />
+                        <input type="date" name="dateFin" id="dateFin" value="{{ $dateFin }}" class="form-control form-control-sm" required />
                     </div>
                     @error('dateFin')
                         <label class="text-danger">{{ $message }}</label>
                     @enderror
+                </div>
+
+                <div class="mb-4 m-2">
+                    <label for="diffDays" class=" text-sm font-medium text-gray-700">Nombre de jours :</label>
+                    <label id="diffDays" class=" text-sm text-gray-700"></label> <!-- Affichage de la différence en jours -->
                 </div>
 
                 <!-- Email Field -->
@@ -97,12 +102,13 @@
                                         type="checkbox" 
                                         name="option[]" 
                                         value="{{ $option['id'] }}" 
-                                        id="options" 
+                                        id="{{ $option->option->prix }}" 
+                                        data="{{ $option->option->prix }}" 
                                         class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                         @if(in_array($option->id, $reservation->options->pluck('id')->toArray())) checked @endif
                                     />
                                     <label for="option-{{ $option['id'] }}" class="text-sm text-gray-700">
-                                        {{ $option->option->matricule }}
+                                        {{ $option->option->materiel }} ({{ $option->option->prix }}Fcfa)
                                     </label>
                                 </div>
                             @endforeach
@@ -116,7 +122,7 @@
                         <select name="status" id="status" class="form-control form-select-sm" style="color: black" required>
                             <option {{ old('status', $reservation['status']) == 'En cours de validation' ? 'selected' : '' }} value="En cours de validation">En cours de validation</option>
                             <option {{ old('status', $reservation['status']) == 'Payé' ? 'selected' : '' }} value="Payé">Payé</option>
-                            {{-- <option {{ old('status', $reservation['status']) == 'Non payé' ? 'selected' : '' }} value="Non Payé"> Non Payé</option> --}}
+                            <option {{ old('status', $reservation['status']) == 'Terminée' ? 'selected' : '' }} value="Terminée">Terminée</option>
                         </select>
                     </div>
                 </div>
@@ -171,6 +177,102 @@
                 $('#loader').show(); // Affiche le loader
                 $('#overlay').show();
             });
+        });
+
+        
+      document.addEventListener("DOMContentLoaded", function() {
+          // Sélectionner les éléments
+          const dateDebut = document.getElementById('dateDebut');
+          const dateFin = document.getElementById('dateFin');
+          const prix = document.getElementById('prix');
+          const optionsCheckbox = document.querySelectorAll('input[name="option[]"]');
+          const diffDaysDisplay = document.getElementById('diffDays');
+          diffDaysDisplay.value = 1;
+        
+        function calculerPrix() {
+          // Vérifier que les champs ne sont pas vides
+          if (!dateDebut.value || !dateFin.value) {
+            prix.value = parseFloat("{{ $reservation->prix }}");  // Si une date est vide, réinitialiser le prix
+            diffDaysDisplay.textContent = '';
+            return;
+          }   
+          
+          const debut = new Date(dateDebut.value);
+          const fin = new Date(dateFin.value);
+          const prixParJour = parseFloat("{{ $espace->prix }}");
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          const currentTime = new Date();
+          const currentHour = currentTime.getHours();
+          const currentMinute = currentTime.getMinutes();
+          // Vérifiez si les dates sont valides
+          if (isNaN(debut.getTime()) || isNaN(fin.getTime())) {
+              console.log("Dates invalides");
+              prix.value = prixParJour;  // Si une des dates est invalide, réinitialiser le prix
+              return;
+          }
+          
+        let checkedIds = [];  // Tableau pour stocker les id des options cochées
+        let calcule = 0; // Tableau pour stocker les id des options cochées
+        // Parcourir chaque case à cocher
+        optionsCheckbox.forEach(function(option) {
+            if (option.checked) {
+                // Si l'option est cochée, récupérer son id et l'ajouter au tableau
+                checkedIds.push(option.id);
+            }
+        });
+        const checkedIdsAsInt = checkedIds.map(id => parseInt(id));  // Transformer en entier
+        console.log("Id des options cochées (en entier) : ", checkedIdsAsInt);
+        // Utiliser reduce pour additionner tous les éléments du tableau
+        calcule = checkedIdsAsInt.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+        console.log("La somme des ids sélectionnés est :", calcule);
+          
+        // Vérifier si la dateFin est après dateDebut
+        if (fin >= debut) {
+            dateDebut.style.color = 'black';
+            dateFin.style.color = 'black';
+            // Calculer la différence en millisecondes
+            const diffTime = fin - debut;
+            // Convertir la différence en jours (millisecondes -> jours)
+            const diffDays = diffTime / (1000 * 3600 * 24);
+            diffDaysDisplay.textContent = (parseInt(diffDays.toFixed(0)) + 1);
+            // Si la durée est de 0 jour (fin égale à début), définir un jour minimum
+            if (diffDays == 0) {
+                prix.value = prixParJour+calcule;
+            } else {
+                // Calculer le prix total basé sur la durée
+                const prixOptions = diffDays * calcule + calcule;
+                const totalPrix = diffDays * prixParJour + prixOptions + prixParJour;
+                prix.value = totalPrix;
+            }
+          } else {
+                dateDebut.style.color = 'red';
+                dateFin.style.color = 'red';
+                prix.value = prixParJour+calcule;  // Si dateFin est avant dateDebut, réinitialiser le prix
+                diffDaysDisplay.textContent = '';
+          }
+        }
+        // Ajouter des écouteurs d'événements pour recalculer le prix lorsque les dates changent
+        dateDebut.addEventListener('input', calculerPrix);
+        dateFin.addEventListener('input', calculerPrix);
+        // Ajouter des écouteurs d'événements pour chaque case à cocher
+        optionsCheckbox.forEach(function(option) {
+            option.addEventListener('change', calculerPrix);  // Recalculer le prix quand une option est sélectionnée ou désélectionnée
+        });
+      });
+
+          // Initialisation de Flatpickr
+        flatpickr("#dateDebut", {
+            dateFormat: "Y-m-d", // Format de la date
+            minDate: "today", // Empêcher la sélection de dates passées
+            locale: "fr", // Langue (ici en français)
+            allowInput: false // Permet l'édition manuelle
+        });
+        flatpickr("#dateFin", {
+            dateFormat: "Y-m-d", // Format de la date
+            minDate: "today", // Empêcher la sélection de dates passées
+            locale: "fr", // Langue (ici en français)
+            allowInput: false // Permet l'édition manuelle
         });
 
     </script>
