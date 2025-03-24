@@ -87,27 +87,38 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <p> ID : {{ $reservation['id'] }}</p>
-                                        <p> Client : {{ $reservation->user->name }}</p>
-                                        <p> Espace : {{ $reservation->espace->nom }}</p>
-                                        <p> Options Supplementaires : 
-                                            @forelse ( $reservation->options as $option)
-                                                <li>{{ $option->option->matricule }}</li>
-                                            @empty
-                                                <li style="color: #ef4444">pas d'option supplementaire</li>
-                                            @endforelse
-                                        </p>
-                                        <p> Date de debut : {{ $reservation['dateDebut'] }}</p>
-                                        <p> Date de fin : {{ $reservation['dateFin'] }}</p>
-                                        <p> Prix : {{ $reservation['prix'] }} Fcfa</p>
-                                        <p> Telephone : {{ $reservation['phone'] }}</p>
-                                        <p>Status : 
-                                            @if ($reservation['status'] == 'En cours de validation')
-                                              <span class="text-danger">{{ $reservation['status'] }}</span>
-                                            @elseif ($reservation['status'] == 'Payé')
-                                              <span class="text-success">{{ $reservation['status'] }}</span>
-                                            @endif
-                                        </p>
+                                      <div class="row">
+                                          <div class="col-6">
+                                            <p> ID : {{ $reservation['id'] }}</p>
+                                            <p> Client : {{ $reservation->user->name }}</p>
+                                            <p> Espace : {{ $reservation->espace->nom }}</p>
+                                            <p> Options Supplementaires : 
+                                                @forelse ( $reservation->options as $option)
+                                                    <li>{{ $option->option->matricule }}</li>
+                                                @empty
+                                                    <li style="color: #ef4444">pas d'option supplementaire</li>
+                                                @endforelse
+                                            </p>
+                                            <p> Date de debut : {{ $reservation['dateDebut'] }}</p>
+                                            <p> Date de fin : {{ $reservation['dateFin'] }}</p>
+                                            <p> Prix : {{ $reservation['prix'] }} Fcfa</p>
+                                            <p> Telephone : {{ $reservation['phone'] }}</p>
+                                            <p>Status : 
+                                                @if ($reservation['status'] == 'En cours de validation')
+                                                  <span class="text-danger">{{ $reservation['status'] }}</span>
+                                                @elseif ($reservation['status'] == 'Payé')
+                                                  <span class="text-success">{{ $reservation['status'] }}</span>
+                                                @endif
+                                            </p>
+                                          </div>
+                                          <div class="col-6 py-10">
+                                              @if ($reservation['status'] == 'En cours de validation')
+                                                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                                                    <a href="{{ route('admin.reservations.validate', $reservation['id']) }}" class="btn btn-primary" style="background-color: #1f4b99;">Valider la reservation</a>
+                                                </div>
+                                              @endif
+                                          </div>
+                                        </div>
                                         <p> Image : <img class="rounded " height="400px" width="400px" src="{{ asset('storage/' . $reservation['image']) }}" alt="Image espace" /></p>
                                     </div>
                                 </div>

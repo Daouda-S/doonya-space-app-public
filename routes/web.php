@@ -80,7 +80,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/reservations/{reservation}/edit', [ReservationController::class, 'edit'])->name('admin.reservations.edit');
     Route::put('admin/reservations/{reservation}', [ReservationController::class, 'update'])->name('admin.reservations.update');
     Route::get('admin/reservationsOption/{espace_id}', [ReservationController::class, 'getOptionsByEspace'])->name('admin.reservationsOption');
-    // Route::get('/espace/{espaceId}/options', [ReservationController::class, 'getOptionsByEspace'])->name('espace.options');
+    Route::get('admin/reservations/validate/{reservation}', [ReservationController::class, 'validate'])->name('admin.reservations.validate');
     // Route::put('admin/reservation/status/{reservation}',[ReservationController::class, 'status' ])->name('admin.reservations.status');
 
 });

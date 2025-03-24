@@ -14,7 +14,7 @@
                 @method('PUT')
                 <!-- espace Field -->
                 <div class="mb-4">
-                    <div class="form-group m-2">
+                    {{-- <div class="form-group m-2">
                         <label>Choisir l'espace</label>
                         <select name="espace" id="espace" class="form-control form-select-sm" style="color: black"  required>
                             <option value="">Choisissez un espace</option>
@@ -24,6 +24,11 @@
                             </option>
                             @endforeach
                         </select>
+                    </div> --}}
+                    <div class="form-group m-2">
+                        <label>Nom de l'espace</label>
+                        <input type="text" hidden value="{{ $reservation->espace->id }}" id="espace" name="espace" class="form-control form-control-sm" required />
+                        <input type="text" value="{{ $reservation->espace->nom }}" readonly class="form-control form-control-sm" required />
                     </div>
                     @error('espace')
                         <label class="text-danger">{{ $message }}</label>
@@ -119,7 +124,7 @@
                 <div class="mb-4">
                     <div class="form-group m-2">
                         <label>Capture de paiement</label>
-                        <input type="file" name="image" id="image" value="{{ $reservation['image'] }}" class="form-control form-control-sm" required />
+                        <input type="file" name="image" id="image" value="{{ $reservation['image'] }}" class="form-control form-control-sm" />
                     </div>
                 </div>
                 <div class="mt-6 mb-4 mx-2">

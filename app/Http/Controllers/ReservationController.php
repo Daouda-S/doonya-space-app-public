@@ -196,6 +196,12 @@ class ReservationController extends Controller
             return redirect()->route('admin.reservations');
         }
     }
+    public function validate($id){
+        $reservation = Reservation::find($id);
+        $reservation->status = 'Payé';
+        $reservation->save();
+        return redirect()->route('admin.reservations');
+    }
 
     // public function status(Request $request, Reservation $reservation)
     // {
