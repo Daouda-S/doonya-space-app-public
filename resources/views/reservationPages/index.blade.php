@@ -31,7 +31,7 @@
                 <!-- Email Field -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Date de debut</label>
-                    <input type="date" placeholder="Cliquez pour choisir la date de debut" name="dateDebut" id="dateDebut" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+                    <input type="date" value="{{ $Reservation }}" placeholder="Cliquez pour choisir la date de debut" name="dateDebut" id="dateDebut" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
                     @error('dateDebut')
                         <label class="text-danger">{{ $message }}</label>
                     @enderror
@@ -40,7 +40,7 @@
                 <!-- Email Field -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Date de Fin</label>
-                    <input type="date" placeholder="Cliquez pour choisir la date de fin" name="dateFin" id="dateFin" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+                    <input type="date" value="{{ $Reservation }}" placeholder="Cliquez pour choisir la date de fin" name="dateFin" id="dateFin" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
                     @error('dateFin')
                         <label class="text-danger">{{ $message }}</label>
                     @enderror
@@ -230,8 +230,6 @@
           const prixParJour = parseFloat("{{ $espace->prix }}");
           const today = new Date();
           today.setHours(0, 0, 0, 0);
-          // alert(debut);
-          // alert(today);
           const currentTime = new Date();
           const currentHour = currentTime.getHours();
           const currentMinute = currentTime.getMinutes();
@@ -304,13 +302,15 @@
           // Initialisation de Flatpickr
         flatpickr("#dateDebut", {
             dateFormat: "Y-m-d", // Format de la date
-            minDate: "today", // Empêcher la sélection de dates passées
+            minDate: "{{ $Reservation }}",
+            defaultDate: "{{ $Reservation }}",
             locale: "fr", // Langue (ici en français)
             allowInput: false // Permet l'édition manuelle
         });
         flatpickr("#dateFin", {
             dateFormat: "Y-m-d", // Format de la date
-            minDate: "today", // Empêcher la sélection de dates passées
+            minDate: "{{ $Reservation }}", // Empêcher la sélection de dates passées
+            defaultDate: "{{ $Reservation }}",
             locale: "fr", // Langue (ici en français)
             allowInput: false // Permet l'édition manuelle
         });

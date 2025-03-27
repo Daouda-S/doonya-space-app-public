@@ -18,12 +18,12 @@
     <!-- Shop Page -->
     <!-- Salle Section -->
     <div class="container">
-        <div class="row mt-1">
-            <div id="selected-value" class=" col-10" >
-                <strong style="display: none;" >Valeur sélectionnée : <span id="display-value">Aucune sélection</span> </strong>
-            </div>
-            <div class="col-2">
-                <select name="espace" id="espace" class="form-select">
+        <div id="selected-value">
+            <strong style="display: none;" >Valeur sélectionnée : <span id="display-value">Aucune sélection</span> </strong>
+        </div>
+        <div class="d-flex align-items-start flex-column bd-highlight">
+            <div class="p-2 bd-highlight" style="top:60px;">
+                <select name="espace" id="espace" class="form-select " style="height:35px; width:200px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;">
                     <option value="">Filtrer par prix</option>
                     <option value="asc">prix >= 10.000 FCFA</option>
                     <option value="desc">prix < 10.000 FCFA</option>
@@ -31,6 +31,7 @@
             </div>
         </div>
     </div>
+    
     @php
             // prix
             
@@ -93,7 +94,16 @@
                                             <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $bureauIndividuel['status'] }}</h4>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $bureauIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                         @elseif ($bureauIndividuel->status == 'déjà loué')
-                                            <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $bureauIndividuel['status'] }}</h4>
+                                            @php
+                                                $ReservationDateFin = $ReservationDateFin->where('espace_id', $bureauIndividuel['id'])->first();
+                                            @endphp
+                                            <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $bureauIndividuel['status'] }} jusqu'au @if($bureauIndividuel['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }}@endif</h4>
+                                            <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $bureauIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $bureauIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                         @endif
                                         
@@ -232,7 +242,16 @@
                                                 <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $salleConference['status'] }}</h4>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $salleConference->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @elseif ($salleConference->status == 'déjà loué')
-                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $salleConference['status'] }}</h4>
+                                                @php
+                                                    $ReservationDateFin = $ReservationDateFin->where('espace_id', $salleConference['id'])->first();
+                                                @endphp
+                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $salleConference['status'] }} jusqu'au @if($salleConference['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }}@endif</h4>
+                                                <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $salleConference->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @endif
                                         </div>
@@ -369,7 +388,16 @@
                                                 <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $espaceCoworking['status'] }}</h4>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceCoworking->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @elseif ($espaceCoworking->status == 'déjà loué')
-                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceCoworking['status'] }}</h4>
+                                                @php
+                                                    $ReservationDateFin = $ReservationDateFin->where('espace_id', $espaceCoworking['id'])->first();
+                                                @endphp
+                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceCoworking['status'] }} jusqu'au @if($espaceCoworking['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }}@endif</h4>
+                                                <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceCoworking['id']) }}" style="color: white">Reserver Apres</a></button>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceCoworking->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @endif
                                         </div>
@@ -507,7 +535,16 @@
                                                 <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $espaceIndividuel['status'] }}</h4>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @elseif ($espaceIndividuel->status == 'déjà loué')
-                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceIndividuel['status'] }}</h4>
+                                                @php
+                                                    $ReservationDateFin = $ReservationDateFin->where('espace_id', $espaceIndividuel['id'])->first();
+                                                @endphp
+                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceIndividuel['status'] }} jusqu'au @if($espaceIndividuel['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }} @endif</h4>
+                                                <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @endif
                                         </div>
@@ -646,7 +683,16 @@
                                             <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $bureauIndividuel['status'] }}</h4>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $bureauIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                         @elseif ($bureauIndividuel->status == 'déjà loué')
-                                            <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $bureauIndividuel['status'] }}</h4>
+                                            @php
+                                                $ReservationDateFin = $ReservationDateFin->where('espace_id', $bureauIndividuel['id'])->first();
+                                            @endphp
+                                            <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $bureauIndividuel['status'] }} jusqu'au @if($bureauIndividuel['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }} @endif</h4>
+                                            <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $bureauIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                         @endif
                                         
@@ -782,8 +828,17 @@
                                             @elseif ($salleConference->status == 'indisponible')
                                                 <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $salleConference['status'] }}</h4>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $salleConference->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
-                                            @elseif ($salleConference->status == 'déjà loué')
-                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $salleConference['status'] }}</h4>
+                                            @elseif ($salleConference->status == 'déjà loué')   
+                                                @php
+                                                    $ReservationDateFin = $ReservationDateFin->where('espace_id', $salleConference['id'])->first();
+                                                @endphp
+                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $salleConference['status'] }} jusqu'au @if($salleConference['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }} @endif</h4>
+                                                <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $salleConference->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @endif
                                         </div>
@@ -920,7 +975,16 @@
                                                 <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $espaceCoworking['status'] }}</h4>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceCoworking->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @elseif ($espaceCoworking->status == 'déjà loué')
-                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceCoworking['status'] }}</h4>
+                                                @php
+                                                    $ReservationDateFin = $ReservationDateFin->where('espace_id', $espaceCoworking['id'])->first();
+                                                @endphp
+                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceCoworking['status'] }} jusqu'au @if($espaceCoworking['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }} @endif</h4>
+                                                <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceCoworking->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @endif
                                         </div>
@@ -1058,7 +1122,16 @@
                                                 <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $espaceIndividuel['status'] }}</h4>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @elseif ($espaceIndividuel->status == 'déjà loué')
-                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceIndividuel['status'] }}</h4>
+                                                @php
+                                                    $ReservationDateFin = $ReservationDateFin->where('espace_id', $espaceIndividuel['id'])->first();
+                                                @endphp
+                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceIndividuel['status'] }} jusqu'au @if($espaceIndividuel['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }} @endif</h4>
+                                                <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @endif
                                         </div>
@@ -1197,7 +1270,16 @@
                                             <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $bureauIndividuel['status'] }}</h4>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $bureauIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                         @elseif ($bureauIndividuel->status == 'déjà loué')
-                                            <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $bureauIndividuel['status'] }}</h4>
+                                            @php
+                                                $ReservationDateFin = $ReservationDateFin->where('espace_id', $bureauIndividuel['id'])->first();
+                                            @endphp
+                                            <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $bureauIndividuel['status'] }} jusqu'au @if($bureauIndividuel['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }} @endif</h4>
+                                            <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                            <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $bureauIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                         @endif
                                         
@@ -1336,7 +1418,16 @@
                                                 <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $salleConference['status'] }}</h4>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $salleConference->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @elseif ($salleConference->status == 'déjà loué')
-                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $salleConference['status'] }}</h4>
+                                                @php
+                                                    $ReservationDateFin = $ReservationDateFin->where('espace_id', $salleConference['id'])->first();
+                                                @endphp
+                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $salleConference['status'] }} jusqu'au @if($salleConference['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }} @endif</h4>
+                                                <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $salleConference->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @endif
                                         </div>
@@ -1473,7 +1564,16 @@
                                                 <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $espaceCoworking['status'] }}</h4>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceCoworking->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @elseif ($espaceCoworking->status == 'déjà loué')
-                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceCoworking['status'] }}</h4>
+                                                @php
+                                                    $ReservationDateFin = $ReservationDateFin->where('espace_id', $espaceCoworking['id'])->first();
+                                                @endphp
+                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceCoworking['status'] }} jusqu'au @if($espaceCoworking['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }} @endif</h4>
+                                                <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceCoworking->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @endif
                                         </div>
@@ -1611,7 +1711,16 @@
                                                 <h4 class="col-6" style="text-transform: capitalize; color:#ef4444;" >Status: {{ $espaceIndividuel['status'] }}</h4>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @elseif ($espaceIndividuel->status == 'déjà loué')
-                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceIndividuel['status'] }}</h4>
+                                                @php
+                                                    $ReservationDateFin = $ReservationDateFin->where('espace_id', $espaceIndividuel['id'])->first();
+                                                @endphp
+                                                <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $espaceIndividuel['status'] }} jusqu'au @if($espaceIndividuel['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }} @endif</h4>
+                                                <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
+                                                onmouseover="this.style.backgroundColor='#154f8c'" 
+                                                onmouseout="this.style.backgroundColor='#1f4b99'" 
+                                                onfocus="this.style.boxShadow='0 0 0 4px rgba(31, 75, 153, 0.3)'" 
+                                                onblur="this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)'">
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">Reserver Apres</a></button>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $espaceIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                             @endif
                                         </div>

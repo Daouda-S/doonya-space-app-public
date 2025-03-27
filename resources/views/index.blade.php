@@ -212,7 +212,7 @@
                   <i class="bi bi-emoji-smile color-blue flex-shrink-0"></i>
                   <div>
                     <span data-purecounter-start="0" data-purecounter-end="87" data-purecounter-duration="1" class="purecounter"></span>
-                    <p>Nos Clients Satisfait</p>
+                    <p>Nos Clients Satisfaits</p>
                   </div>
                 </div>
               </div><!-- End Stats Item -->
@@ -222,7 +222,7 @@
                   <i class="bi bi-journal-richtext color-orange flex-shrink-0"></i>
                   <div>
                     <span data-purecounter-start="0" data-purecounter-end="30" data-purecounter-duration="1" class="purecounter"></span>
-                    <p>Nos Projects</p>
+                    <p>Nos Projets</p>
                   </div>
                 </div>
               </div><!-- End Stats Item -->

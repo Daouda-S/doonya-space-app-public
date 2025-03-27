@@ -208,6 +208,9 @@ class ReservationController extends Controller
         $reservation = Reservation::find($id);
         $reservation->status = 'Payé';
         $reservation->save();
+        $espace = Espace::find($reservation->espace_id);
+        $espace->status = 'déjà loué';
+        $espace->save();
         return redirect()->route('admin.reservations');
     }
 

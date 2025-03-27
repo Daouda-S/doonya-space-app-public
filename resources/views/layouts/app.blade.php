@@ -63,9 +63,7 @@
                         <h4>Address</h4>
                         <p>Bd Tensoba Zoobdo, rue 17.69 porte 333, Secteur 06,</p>
                         <p>17 BP Ouagadougou, Burkina Faso</p>
-                       
                       </div>
-            
                     </div>
             
                     <div class="col-lg-3 col-md-6 d-flex">
@@ -73,7 +71,7 @@
                       <div>
                         <h4>Contact</h4>
                         <p>
-                          <strong>Phone:</strong> <span>+226 67400675</span><br>
+                          <strong>Phone:</strong> <span>+226 65059265</span><br>
                           <strong>Email:</strong> <span>doonyalabs@gmail.com</span><br>
                         </p>
                       </div>
