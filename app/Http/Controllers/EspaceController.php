@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Espace;
 use App\Models\Option;
 use App\Models\EspaceImage;
+use App\Models\Reservation;
 use App\Models\EspaceOption;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -86,10 +87,6 @@ class EspaceController extends Controller
 
     public function update(Request $request, Espace $espace)
     {
-
-        // $espace = Espace::with('options')->findOrFail($id);
-        // $options = Option::all();
-        
         $validation = $request->validate([
             'nom' => 'required|string',
             'description' => 'nullable|string',
@@ -101,54 +98,50 @@ class EspaceController extends Controller
             'espace_image.*' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
         
-        
         try {
-            
-            $espace->nom = $request->nom;
-            $espace->description = $request->description;
-            $espace->status = $request->status;
-            $espace->prix = $request->prix;
-            $espace->taille = $request->taille;
-            $espace->capacite = $request->capacite;
-            $espace->save();
-            
-            
-            // Si des nouvelles options sont sélectionnées
-            // Suppression ou ajout des anciennes options liées à cet espace
-             // On détache toutes les options associées
-            // $espace->options()->sync($request->option);
-            // Ajouter les nouvelles options
-            if ($request->has('option')) {
-                $espace->options()->detach(); 
-                foreach ( $request->option as $option ){
-                    $espaceOption = new EspaceOption();
-                    $espaceOption->espace_id = $espace->id;
-                    $espaceOption->option_id = $option;
-                    $espaceOption->save();
+            $reservationEspaceId = Reservation::where('espace_id', $espace->id)->get();
+            if($reservationEspaceId && $reservationEspaceId->count() > 0){
+                session()->flash('error', 'Une erreur est survenue: l\'espace est deja reservé impossible de modifier');
+                return redirect()->route('admin.espaces.edit', $espace);
+            }else{
+                $espace->nom = $request->nom;
+                $espace->description = $request->description;
+                $espace->status = $request->status;
+                $espace->prix = $request->prix;
+                $espace->taille = $request->taille;
+                $espace->capacite = $request->capacite;
+                $espace->save();
+                if ($request->has('option')) {
+                    $espace->options()->detach();
+                    foreach ( $request->option as $option ){
+                        $espaceOption = new EspaceOption();
+                        $espaceOption->espace_id = $espace->id;
+                        $espaceOption->option_id = $option;
+                        $espaceOption->save();
+                    }
+                }
+                
+                if ($request->hasFile('espace_image')) {
+                    // Ajouter les nouvelles images
+                    foreach ($request->file('espace_image') as $image) {
+                        // Sauvegarder l'image dans le dossier public
+                        $path = $image->store('upload/espace/images', 'public');
+                
+                        // Créer un nouvel enregistrement pour chaque nouvelle image
+                        $espaceImage = new EspaceImage();
+                        $espaceImage->espace_id = $espace->id;
+                        $espaceImage->image = $path;  // Sauvegarder le chemin relatif de l'image
+                        $espaceImage->save();  // Sauvegarder dans la base de données
+                    }
                 }
             }
-            
 
-            if ($request->hasFile('espace_image')) {
-                // Ajouter les nouvelles images
-                foreach ($request->file('espace_image') as $image) {
-                    // Sauvegarder l'image dans le dossier public
-                    $path = $image->store('upload/espace/images', 'public');
-            
-                    // Créer un nouvel enregistrement pour chaque nouvelle image
-                    $espaceImage = new EspaceImage();
-                    $espaceImage->espace_id = $espace->id;
-                    $espaceImage->image = $path;  // Sauvegarder le chemin relatif de l'image
-                    $espaceImage->save();  // Sauvegarder dans la base de données
-                }
-            }
-            
             // Message de succès
             session()->flash('success', 'espace mise à jour avec succès');
             return redirect()->route('admin.espaces');
         } catch (\Exception $e) {
             // Message d'erreur en cas de problème
-            session()->flash('error', 'Une erreur est survenue: les options sont deja reservé..');
+            session()->flash('error', 'Une erreur est survenue'.$e->getMessage());
             return redirect()->route('admin.espaces.edit', $espace);
         }
     }
@@ -161,7 +154,7 @@ class EspaceController extends Controller
         try {
             // Supprimer les relations dans la table pivot 'espace_option'
             $espace->options()->detach();  // Détacher toutes les options liées à cet espace
-            
+            $espace->options()->detach();
             // Supprimer les images du stockage
             foreach ($espace->espaceImage as $image) {
                 // Supprimer l'image du stockage

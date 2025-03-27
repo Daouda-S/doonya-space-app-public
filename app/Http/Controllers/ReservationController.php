@@ -165,8 +165,8 @@ class ReservationController extends Controller
             $reservation->save();
     
             // Gérer les options associées à la réservation
-            $reservation->options()->detach(); // Détacher les anciennes options
             if ($request->has('option')) {
+                $reservation->options()->detach(); // Détacher les anciennes options
                 foreach ($request->option as $option) {
                     $reservationOption = new ReservationOption();
                     $reservationOption->reservation_id = $reservation->id;
