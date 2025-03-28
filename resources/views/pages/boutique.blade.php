@@ -54,6 +54,7 @@
               <h2>Nos Bureaux Individuels</h2>
               <p>Découvrer nos différentes catégories de salles à location...</p>
             </div><!-- End Section Title -->
+            
     
               <!-- Real Estate Section -->
                 <div class="container">
@@ -72,12 +73,14 @@
                                         @endif
                                     @else
                                         @if ($bureauIndividuel->espaceImage->isNotEmpty())
-                                            <img class="img-fluid rounded-3" src="{{ asset('storage/' . $bureauIndividuel->espaceImage->first()->image) }}" alt="Image espace" />
+                                            <a href="{{ url('reservationPages/index', $bureauIndividuel['id']) }}" style="color: white">
+                                            <img class="img-fluid rounded-3" src="{{ asset('storage/' . $bureauIndividuel->espaceImage->first()->image) }}" alt="Image espace" /></a>
                                         @else
                                             <p style="color: #ef4444">pas d'image </p>
                                         @endif
                                     @endif
                                 </div>
+                                
                                 <div class="member-info rounded-3 p-4">
                                     <div class="row">
                                         @if ($bureauIndividuel->status == 'disponible')
@@ -95,7 +98,7 @@
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#allImagesModal{{ $bureauIndividuel->id }}" style="color: #fc9250; font-weight: 600;">Voir plus </a>
                                         @elseif ($bureauIndividuel->status == 'déjà loué')
                                             @php
-                                                $ReservationDateFin = $ReservationDateFin->where('espace_id', $bureauIndividuel['id'])->first();
+                                                $ReservationDateFin = $ReservationDateFin->where('espace_id', $bureauIndividuel['id'])->last();
                                             @endphp
                                             <h4 class="col-6" style="text-transform: capitalize; color:#1f4b99;" >Status: {{ $bureauIndividuel['status'] }} jusqu'au @if($bureauIndividuel['id'] == $ReservationDateFin['espace_id']) {{ \Carbon\Carbon::parse($ReservationDateFin['dateFin'])->format('d/m/Y') }}@endif</h4>
                                             <button class="col-6 " style=" height:35px; background-color: #1f4b99; color: white; font-weight: 600; border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease;" 
@@ -220,7 +223,8 @@
                                         @endif
                                     @else
                                         @if ($salleConference->espaceImage->isNotEmpty())
-                                            <img class="img-fluid rounded-3" src="{{ asset('storage/' . $salleConference->espaceImage->first()->image) }}" alt="Image espace" />
+                                            <a href="{{ url('reservationPages/index', $salleConference['id']) }}" style="color: white">
+                                            <img class="img-fluid rounded-3" src="{{ asset('storage/' . $salleConference->espaceImage->first()->image) }}" alt="Image espace" /></a>
                                         @else
                                             <p style="color: #ef4444">pas d'image </p>
                                         @endif
@@ -366,7 +370,8 @@
                                             @endif
                                         @else
                                             @if ($espaceCoworking->espaceImage->isNotEmpty())
-                                                <img class="img-fluid rounded-3" src="{{ asset('storage/' . $espaceCoworking->espaceImage->first()->image) }}" alt="Image espace" />
+                                                <a href="{{ url('reservationPages/index', $espaceCoworking['id']) }}" style="color: white">
+                                                <img class="img-fluid rounded-3" src="{{ asset('storage/' . $espaceCoworking->espaceImage->first()->image) }}" alt="Image espace" /></a>
                                             @else
                                                 <p style="color: #ef4444">pas d'image </p>
                                             @endif
@@ -513,7 +518,8 @@
                                             @endif
                                         @else
                                             @if ($espaceIndividuel->espaceImage->isNotEmpty())
-                                                <img class="img-fluid rounded-3" src="{{ asset('storage/' . $espaceIndividuel->espaceImage->first()->image) }}" alt="Image espace" />
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">
+                                                <img class="img-fluid rounded-3" src="{{ asset('storage/' . $espaceIndividuel->espaceImage->first()->image) }}" alt="Image espace" /></a>
                                             @else
                                                 <p style="color: #ef4444">pas d'image </p>
                                             @endif
@@ -661,7 +667,8 @@
                                         @endif
                                     @else
                                         @if ($bureauIndividuel->espaceImage->isNotEmpty())
-                                            <img class="img-fluid rounded-3" src="{{ asset('storage/' . $bureauIndividuel->espaceImage->first()->image) }}" alt="Image espace" />
+                                            <a href="{{ url('reservationPages/index', $bureauIndividuel['id']) }}" style="color: white">
+                                            <img class="img-fluid rounded-3" src="{{ asset('storage/' . $bureauIndividuel->espaceImage->first()->image) }}" alt="Image espace" /></a>
                                         @else
                                             <p style="color: #ef4444">pas d'image </p>
                                         @endif
@@ -807,7 +814,8 @@
                                         @endif
                                     @else
                                         @if ($salleConference->espaceImage->isNotEmpty())
-                                            <img class="img-fluid rounded-3" src="{{ asset('storage/' . $salleConference->espaceImage->first()->image) }}" alt="Image espace" />
+                                            <a href="{{ url('reservationPages/index', $salleConference['id']) }}" style="color: white">
+                                            <img class="img-fluid rounded-3" src="{{ asset('storage/' . $salleConference->espaceImage->first()->image) }}" alt="Image espace" /></a>
                                         @else
                                             <p style="color: #ef4444">pas d'image </p>
                                         @endif
@@ -953,7 +961,8 @@
                                             @endif
                                         @else
                                             @if ($espaceCoworking->espaceImage->isNotEmpty())
-                                                <img class="img-fluid rounded-3" src="{{ asset('storage/' . $espaceCoworking->espaceImage->first()->image) }}" alt="Image espace" />
+                                                <a href="{{ url('reservationPages/index', $espaceCoworking['id']) }}" style="color: white">
+                                                <img class="img-fluid rounded-3" src="{{ asset('storage/' . $espaceCoworking->espaceImage->first()->image) }}" alt="Image espace" /></a>
                                             @else
                                                 <p style="color: #ef4444">pas d'image </p>
                                             @endif
@@ -1100,6 +1109,7 @@
                                             @endif
                                         @else
                                             @if ($espaceIndividuel->espaceImage->isNotEmpty())
+                                                <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">
                                                 <img class="img-fluid rounded-3" src="{{ asset('storage/' . $espaceIndividuel->espaceImage->first()->image) }}" alt="Image espace" />
                                             @else
                                                 <p style="color: #ef4444">pas d'image </p>
@@ -1248,6 +1258,7 @@
                                         @endif
                                     @else
                                         @if ($bureauIndividuel->espaceImage->isNotEmpty())
+                                            <a href="{{ url('reservationPages/index', $bureauIndividuel['id']) }}" style="color: white">
                                             <img class="img-fluid rounded-3" src="{{ asset('storage/' . $bureauIndividuel->espaceImage->first()->image) }}" alt="Image espace" />
                                         @else
                                             <p style="color: #ef4444">pas d'image </p>
@@ -1396,6 +1407,7 @@
                                         @endif
                                     @else
                                         @if ($salleConference->espaceImage->isNotEmpty())
+                                            <a href="{{ url('reservationPages/index', $salleConference['id']) }}" style="color: white">
                                             <img class="img-fluid rounded-3" src="{{ asset('storage/' . $salleConference->espaceImage->first()->image) }}" alt="Image espace" />
                                         @else
                                             <p style="color: #ef4444">pas d'image </p>
@@ -1542,6 +1554,7 @@
                                             @endif
                                         @else
                                             @if ($espaceCoworking->espaceImage->isNotEmpty())
+                                                <a href="{{ url('reservationPages/index', $espaceCoworking['id']) }}" style="color: white">
                                                 <img class="img-fluid rounded-3" src="{{ asset('storage/' . $espaceCoworking->espaceImage->first()->image) }}" alt="Image espace" />
                                             @else
                                                 <p style="color: #ef4444">pas d'image </p>
@@ -1689,6 +1702,7 @@
                                             @endif
                                         @else
                                             @if ($espaceIndividuel->espaceImage->isNotEmpty())
+                                            <a href="{{ url('reservationPages/index', $espaceIndividuel['id']) }}" style="color: white">
                                                 <img class="img-fluid rounded-3" src="{{ asset('storage/' . $espaceIndividuel->espaceImage->first()->image) }}" alt="Image espace" />
                                             @else
                                                 <p style="color: #ef4444">pas d'image </p>

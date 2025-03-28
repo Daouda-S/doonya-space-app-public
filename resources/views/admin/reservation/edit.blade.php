@@ -123,7 +123,7 @@
                             <option {{ old('status', $reservation['status']) == 'En cours de validation' ? 'selected' : '' }} value="En cours de validation">En cours de validation</option>
                             <option {{ old('status', $reservation['status']) == 'Payé' ? 'selected' : '' }} value="Payé">Payé</option>
                             <option {{ old('status', $reservation['status']) == 'Terminée' ? 'selected' : '' }} value="Terminée">Terminée</option>
-                        </select>
+                            </select>
                     </div>
                 </div>
                 <!--  image Field -->

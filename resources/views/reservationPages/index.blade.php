@@ -27,7 +27,6 @@
                     <input type="text" value="{{ $espace->nom }}" readonly class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
                 </div>
                 <input type="text" hidden value="{{ $user->id }}" name="user">
-
                 <!-- Email Field -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Date de debut</label>
@@ -40,7 +39,7 @@
                 <!-- Email Field -->
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-700">Date de Fin</label>
-                    <input type="date" value="{{ $Reservation }}" placeholder="Cliquez pour choisir la date de fin" name="dateFin" id="dateFin" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
+                    <input type="date" placeholder="Cliquez pour choisir la date de fin" name="dateFin" id="dateFin" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" required />
                     @error('dateFin')
                         <label class="text-danger">{{ $message }}</label>
                     @enderror
@@ -211,8 +210,14 @@
         const optionsCheckbox = document.querySelectorAll('input[name="option[]"]');
         const diffDaysDisplay = document.getElementById('diffDays');
         diffDaysDisplay.value = 1;
-        dateDebut.value = new Date().toISOString().split('T')[0];
-        dateFin.value = new Date().toISOString().split('T')[0];
+        if({{ $Reservation }} == null){
+            dateDebut.value = new Date().toISOString().split('T')[0];
+            dateFin.value = new Date().toISOString().split('T')[0];
+        }else{
+            const dateValue = @json($Reservation);
+            dateDebut.value = new Date(dateValue).toISOString().split('T')[0];
+            dateFin.value = new Date(dateValue).toISOString().split('T')[0];
+        }
         // Fonction pour calculer et afficher le prix
         function calculerPrix() {
           

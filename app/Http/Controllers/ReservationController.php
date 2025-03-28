@@ -23,6 +23,9 @@ class ReservationController extends Controller
             if (Carbon::parse($reservation->dateFin)->isBefore(Carbon::today()) && $reservation->status !== 'Terminée') {
                 $reservation->status = 'Terminée';
                 $reservation->save();
+                $espace = Espace::find($reservation->espace_id);
+                $espace->status = 'disponible';
+                $espace->save();
             }
         }
         return view('admin.reservation.home', compact(['reservations']));
